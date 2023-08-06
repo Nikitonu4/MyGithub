@@ -7,7 +7,7 @@ export default [
     component: () => import('@/pages/repositories-list.vue'),
   },
   {
-    path: '/:username/:repositoryName',
+    path: '/:owner/:repo',
     name: 'repository-detail-card',
     component: () => import('@/pages/repository-detail-card.vue'),
   },

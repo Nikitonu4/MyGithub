@@ -12,7 +12,7 @@
       </div>
     </div>
     <div class="repository-card__main">
-      <p>Дата последнего коммита: {{ formattedDate() }}</p>
+      <p>Дата последнего коммита: {{ dateInLocalString(lastCommitDate) }}</p>
       <a class="repository-card__main-link" :href="githubLink"
         >Ссылка на Github: {{ githubLink }}</a
       >
@@ -22,11 +22,8 @@
 
 <script setup lang="ts">
   import { RepositoryCardProps } from '@/modules/repositories-list/components/repository-card/types/repository-card-props';
-  const props = defineProps<RepositoryCardProps>();
-
-  /** Получение форматированной даты */
-  const formattedDate = () =>
-    new Date(props.lastCommitDate).toLocaleString('ru');
+  import { dateInLocalString } from '@/shared/utils/date';
+  defineProps<RepositoryCardProps>();
 </script>
 
 <style scoped lang="scss">

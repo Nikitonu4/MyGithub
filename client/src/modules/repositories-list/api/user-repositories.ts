@@ -9,7 +9,7 @@ import { UserRepositoryQuery } from '@/modules/repositories-list/types/user-repo
 async function getUserRepositories(
   query: UserRepositoryQuery
 ): Promise<UserRepositoryItem[]> {
-  await new Promise((res) => setTimeout(res, 10000));
+  // await new Promise((res) => setTimeout(res, 5000));
   const { data } = await axiosInstance.get<UserRepositoryItem[]>(
     `users/${query.username}/repos`,
     {

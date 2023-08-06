@@ -1,5 +1,5 @@
 export type SkeletonLoaderProps = {
-  type?: 'rect' | 'text';
+  type?: 'rect' | 'circle'; // TODO: circle process
   width?: string;
   height?: string;
 };
