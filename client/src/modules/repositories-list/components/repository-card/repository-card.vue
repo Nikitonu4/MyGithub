@@ -12,8 +12,10 @@
       </div>
     </div>
     <div class="repository-card__main">
-      <p>Дата последнего коммита: {{ lastCommitDate }}</p>
-      <p>Ссылка на Github: {{ githubLink }}</p>
+      <p>Дата последнего коммита: {{ formattedDate() }}</p>
+      <a class="repository-card__main-link" :href="githubLink"
+        >Ссылка на Github: {{ githubLink }}</a
+      >
     </div>
   </div>
 </template>
@@ -21,7 +23,11 @@
 <script setup lang="ts">
   import { RepositoryCardProps } from '@/modules/repositories-list/components/repository-card/types/repository-card-props';
 
-  defineProps<RepositoryCardProps>();
+  const props = defineProps<RepositoryCardProps>();
+
+  /** Получение форматированной даты */
+  const formattedDate = () =>
+    new Date(props.lastCommitDate).toLocaleString('ru');
 </script>
 
 <style scoped lang="scss">
@@ -55,6 +61,9 @@
       display: flex;
       flex-direction: column;
       gap: 15px;
+      &-link {
+        color: colors.$black;
+      }
     }
   }
 </style>
