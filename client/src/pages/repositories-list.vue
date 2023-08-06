@@ -9,6 +9,7 @@
     </div>
     <div class="cards-list">
       <repository-card
+        v-for="repository in Array(100)"
         title="Тестовый репозиторий"
         github-link="123124"
         :stars="23"
@@ -29,8 +30,11 @@
 <style scoped lang="scss">
   .control-panel {
     display: flex;
-    align-content: center;
-    justify-content: center;
-    margin-bottom: 30px;
+    margin-bottom: 100px;
+  }
+  .cards-list {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
   }
 </style>

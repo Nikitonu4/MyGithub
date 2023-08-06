@@ -23,7 +23,8 @@
     display: block;
     outline: none;
     border: 3px solid colors.$black;
-    padding: 13px 10px;
+    padding: 20px 20px;
+    font-size: 20px;
     color: colors.$black;
     background: transparent;
     border-radius: 4px 0 0 4px;
