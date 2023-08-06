@@ -1,0 +1,18 @@
+{
+  "extends": [
+    "stylelint-config-recommended-scss",
+    "stylelint-declaration-strict-value",
+    "stylelint-config-recommended-vue",
+    "stylelint-config-clean-order",
+    "stylelint-prettier/recommended"
+  ],
+  "overrides": [
+    {
+      "files": ["*.vue"],
+      "rules": {
+        "at-rule-no-unknown": null,
+        "no-invalid-position-at-import-rule": null
+      }
+    }
+  ]
+}
