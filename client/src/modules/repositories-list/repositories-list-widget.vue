@@ -12,6 +12,7 @@
       <repository-card
         v-for="repository in repositories"
         :key="repository.id"
+        @click="$router.push(repository.full_name)"
         :title="repository.name"
         :github-link="repository.html_url"
         :stars="repository.stargazers_count"

@@ -7,9 +7,8 @@ export default [
     component: () => import('@/pages/repositories-list.vue'),
   },
   {
-    path: '/:username/:repositoriesName',
-    name: 'repositories-detail',
-    component: () =>
-      import('@/pages/repositories-detail/repositories-detail.vue'),
+    path: '/:username/:repositoryName',
+    name: 'repository-detail-card',
+    component: () => import('@/pages/repository-detail-card.vue'),
   },
 ] as RouteRecordRaw[];
