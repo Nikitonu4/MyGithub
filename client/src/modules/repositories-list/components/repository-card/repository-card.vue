@@ -1,13 +1,19 @@
 <template>
   <div class="repository-card">
-    <div class="repository-card__title">{{ title }}</div>
-    <div class="repository-card__stars">
-      <img
-        class="repository-card__stars-img"
-        src="@/assets/img/star.svg"
-        alt="star"
-      />
-      <div>{{ stars }}</div>
+    <div class="repository-card__header">
+      <div class="repository-card__header-title">{{ title }}</div>
+      <div class="repository-card__header-stars">
+        <img
+          class="repository-card__header-stars__img"
+          src="@/assets/img/star.svg"
+          alt="star"
+        />
+        <div>{{ stars }}</div>
+      </div>
+    </div>
+    <div class="repository-card__main">
+      <p>Дата последнего коммита: {{ lastCommitDate }}</p>
+      <p>Ссылка на Github: {{ githubLink }}</p>
     </div>
   </div>
 </template>
@@ -27,18 +33,28 @@
     border: 3px solid colors.$black;
     box-shadow: 0.5rem 0.5rem 0 colors.$black;
     display: flex;
-    align-items: center;
-    gap: 40px;
-    &__title {
-      font-size: 30px;
-    }
-    &__stars {
+    flex-direction: column;
+    gap: 30px;
+    &__header {
       display: flex;
       align-items: center;
-      gap: 5px;
-      &-img {
-        width: 30px;
+      gap: 20px;
+      &-title {
+        font-size: 30px;
       }
+      &-stars {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        &__img {
+          width: 30px;
+        }
+      }
+    }
+    &__main {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
     }
   }
 </style>
