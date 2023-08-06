@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-  import { SearchRepositoriesInputProps } from '@/pages/repositories-list/components/search-repositories-input/types/search-repositories-input-props';
+  import { SearchRepositoriesInputProps } from '@/modules/repositories-list/components/search-repositories-input/types/search-repositories-input-props';
 
   withDefaults(defineProps<SearchRepositoriesInputProps>(), {
     placeholder: '',

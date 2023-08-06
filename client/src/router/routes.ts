@@ -4,11 +4,12 @@ export default [
   {
     path: '/',
     name: 'repo-list',
-    component: () => import('@/pages/repositories-list/repositories-list.vue'),
+    component: () => import('@/pages/repositories-list.vue'),
   },
   {
     path: '/:username/:repositoriesName',
     name: 'repositories-detail',
-    component: () => import('@/pages/repositories-detail/repositories-detail.vue'),
+    component: () =>
+      import('@/pages/repositories-detail/repositories-detail.vue'),
   },
 ] as RouteRecordRaw[];
