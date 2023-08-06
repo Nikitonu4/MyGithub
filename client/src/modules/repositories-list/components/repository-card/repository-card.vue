@@ -22,7 +22,6 @@
 
 <script setup lang="ts">
   import { RepositoryCardProps } from '@/modules/repositories-list/components/repository-card/types/repository-card-props';
-
   const props = defineProps<RepositoryCardProps>();
 
   /** Получение форматированной даты */

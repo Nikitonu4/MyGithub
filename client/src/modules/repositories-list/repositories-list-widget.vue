@@ -7,7 +7,8 @@
       />
       <search-button />
     </div>
-    <h1 class="error-cards" v-if="isError">Что-то пошло не так:(</h1>
+    <repository-card-skeleton v-if="isFetching" />
+    <h1 class="error-cards" v-else-if="isError">Что-то пошло не так:(</h1>
     <div v-else class="cards-list">
       <repository-card
         v-for="repository in repositories"
@@ -28,9 +29,14 @@
   import { ref } from 'vue';
   import RepositoryCard from '@/modules/repositories-list/components/repository-card/repository-card.vue';
   import { useUserRepositoriesQuery } from '@/modules/repositories-list/api/user-repositories';
+  import RepositoryCardSkeleton from '@/modules/repositories-list/components/repository-card/repository-card-skeleton.vue';
   const inputValue = ref('');
 
-  const { isError, data: repositories } = useUserRepositoriesQuery({
+  const {
+    isFetching,
+    isError,
+    data: repositories,
+  } = useUserRepositoriesQuery({
     username: 'Nikitonu4',
     per_page: 10,
     page: 1,
