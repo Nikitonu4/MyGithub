@@ -1,21 +1,31 @@
 <template>
   <div class="repository-info">
-    <div class="repository-info__owner">
-      <img
-        v-if="ownerAvatarSrc"
-        class="repository-info__owner-img"
-        :src="ownerAvatarSrc"
-        alt="owner avatar"
-      />
-      <a :href="ownerUrl">
-        {{ ownerLogin }}
-      </a>
-    </div>
     <div class="repository-info__header">
-      <div class="repository-info__header-title">{{ title }}</div>
-      <div class="repository-info__header-stars">
+      <div class="repository-info__header-back" @click="$router.back()">
         <img
-          class="repository-info__header-stars__img"
+          class="repository-info__header-back-link"
+          src="@/assets/img/back-arrow.svg"
+          alt="back"
+        />
+        <div>Назад</div>
+      </div>
+      <div class="repository-info__header-owner">
+        <img
+          v-if="ownerAvatarSrc"
+          class="repository-info__header-owner-img"
+          :src="ownerAvatarSrc"
+          alt="owner avatar"
+        />
+        <a class="repository-info__header-owner-login" :href="ownerUrl">
+          {{ ownerLogin }}
+        </a>
+      </div>
+    </div>
+    <div class="repository-info__main">
+      <div class="repository-info__main-title">{{ title }}</div>
+      <div class="repository-info__main-stars">
+        <img
+          class="repository-info__main-stars__img"
           src="@/assets/img/star.svg"
           alt="star"
         />
@@ -54,7 +64,7 @@
 <style scoped lang="scss">
   @use '@/assets/styles/colors' as colors;
   .repository-info {
-    padding: 60px 70px;
+    padding: 40px 70px;
     border-radius: 4px;
     border: 3px solid colors.$black;
     box-shadow: 0.5rem 0.5rem 0 colors.$black;
@@ -62,23 +72,36 @@
     flex-direction: column;
     max-width: 1000px;
     gap: 20px;
-    &__owner {
+    &__header {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       align-items: center;
       gap: 10px;
-      > a {
+      &-back {
+        color: colors.$gray-light;
         font-size: 32px;
         font-weight: 400;
-        text-decoration-line: underline;
+        display: flex;
+        gap: 15px;
+        cursor: pointer;
       }
-      &-img {
-        border-radius: 50%;
-        width: 57px;
-        height: 57px;
+      &-owner {
+        display: flex;
+        align-items: center;
+        &-login {
+          font-size: 32px;
+          font-weight: 400;
+          text-decoration-line: underline;
+        }
+        &-img {
+          border-radius: 50%;
+          width: 57px;
+          height: 57px;
+        }
       }
     }
-    &__header {
+    &__main {
+      margin-top: 40px;
       display: flex;
       align-items: center;
       gap: 20px;
@@ -107,7 +130,7 @@
       }
     }
     &__languages {
-      max-width: 300px;
+      max-width: 500px;
       &-title {
         font-weight: 500;
       }
