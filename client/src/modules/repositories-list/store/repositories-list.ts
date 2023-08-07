@@ -5,12 +5,15 @@ import {
   RepositoryItemFromList,
 } from '@/modules/repositories-list/types/repositories-list-item';
 import { UserRepositoryItem } from '@/modules/repositories-list/types/user-repository-item';
+import { AppPaginator } from '@/shared/types/app-paginator';
 
 interface IRepositoriesList {
   isFetching: boolean;
   isError: boolean;
   search: string;
+  totalItems: number;
   repositories: RepositoryItemFromList[] | UserRepositoryItem[];
+  paginator: AppPaginator;
 }
 /** Управление логикой списка репозиториев */
 export const useRepositoriesListStore = defineStore('repositoriesList', {
@@ -18,7 +21,12 @@ export const useRepositoriesListStore = defineStore('repositoriesList', {
     isFetching: false,
     isError: false,
     search: '',
+    totalItems: 0,
     repositories: [],
+    paginator: {
+      page: 1,
+      limit: 10,
+    },
   }),
   actions: {
     /** Поиск репозиториев по строке */
@@ -29,14 +37,16 @@ export const useRepositoriesListStore = defineStore('repositoriesList', {
           `search/repositories`,
           {
             params: {
-              per_page: 10,
-              page: 1,
+              per_page: this.paginator.limit,
+              page: this.paginator.page,
               q: this.search,
             },
           }
         );
+        this.totalItems = data.total_count;
         return data.items;
       } catch (e) {
+        this.totalItems = 0;
         this.isError = true;
         throw e;
       } finally {
@@ -46,18 +56,21 @@ export const useRepositoriesListStore = defineStore('repositoriesList', {
     /** Получение всех репозиториев пользователя */
     async getUserRepositories(): Promise<UserRepositoryItem[]> {
       try {
+        this.isFetching = true;
         const { data } = await axiosInstance.get<UserRepositoryItem[]>(
           // `users/${query.username}/repos`,
           `users/Nikitonu4/repos`,
           {
             params: {
-              per_page: 10,
-              page: 1,
+              per_page: this.paginator.limit,
+              page: this.paginator.page,
             },
           }
         );
+        this.totalItems = data.length;
         return data;
       } catch (e) {
+        this.totalItems = 0;
         this.isError = true;
         throw e;
       } finally {
@@ -66,6 +79,7 @@ export const useRepositoriesListStore = defineStore('repositoriesList', {
     },
     /** Действия по поиску репозиториев */
     async searchRepositories() {
+      this.isError = false;
       if (this.search) {
         this.repositories = await this.getSearchedRepositories();
       } else {
