@@ -3,15 +3,17 @@
     <div class="control-panel">
       <search-repositories-input
         placeholder="Название репозитория"
-        v-model="inputValue"
+        v-model="repositoriesStore.search"
       />
-      <search-button />
+      <search-button @click="toSearch()" />
     </div>
-    <repository-card-skeleton v-if="isFetching" />
-    <h1 class="error-cards" v-else-if="isError">Что-то пошло не так:(</h1>
+    <repository-card-skeleton v-if="repositoriesStore.isFetching" />
+    <h1 class="error-cards" v-else-if="repositoriesStore.isError">
+      Что-то пошло не так:(
+    </h1>
     <div v-else class="cards-list">
       <repository-card
-        v-for="repository in repositories"
+        v-for="repository in repositoriesStore.repositories"
         :key="repository.id"
         @click="$router.push(repository.full_name)"
         :title="repository.name"
@@ -26,21 +28,26 @@
 <script setup lang="ts">
   import SearchRepositoriesInput from '@/modules/repositories-list/components/search-repositories-input/search-repositories-input.vue';
   import SearchButton from '@/modules/repositories-list/components/search-button/search-button.vue';
-  import { ref } from 'vue';
   import RepositoryCard from '@/modules/repositories-list/components/repository-card/repository-card.vue';
-  import { useUserRepositoriesQuery } from '@/modules/repositories-list/api/user-repositories';
   import RepositoryCardSkeleton from '@/modules/repositories-list/components/repository-card/repository-card-skeleton.vue';
-  const inputValue = ref('');
+  import { useRepositoriesListStore } from '@/modules/repositories-list/store/repositories-list';
+  import { useRoute, useRouter } from 'vue-router';
 
-  const {
-    isFetching,
-    isError,
-    data: repositories,
-  } = useUserRepositoriesQuery({
-    username: 'Nikitonu4',
-    per_page: 10,
-    page: 1,
-  });
+  const repositoriesStore = useRepositoriesListStore();
+  const route = useRoute();
+  const router = useRouter();
+
+  // Устанавливаем значение поиска если уже есть что-то в строке браузера
+  repositoriesStore.search = String(route.query.search ?? '');
+
+  repositoriesStore.searchRepositories();
+
+  /** Поиск репозиториев */
+  const toSearch = async () => {
+    await repositoriesStore.searchRepositories();
+    const query = { ...route.query, search: repositoriesStore.search };
+    await router.replace({ query });
+  };
 </script>
 
 <style scoped lang="scss">

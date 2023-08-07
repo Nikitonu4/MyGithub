@@ -25,7 +25,7 @@
     <div class="repository-info__updated">
       Дата последнего коммита: {{ dateInLocalString(lastCommitDate) }}
     </div>
-    <div class="repository-info__languages">
+    <div class="repository-info__languages" v-if="languagesBadges.length">
       <p class="repository-info__languages-title">Используемые языки:</p>
       <div class="repository-info__languages-badges">
         <chips-item
@@ -35,7 +35,7 @@
         />
       </div>
     </div>
-    <div class="repository-info__description">
+    <div class="repository-info__description" v-if="description">
       <p class="repository-info__description-title">О репозитории:</p>
       <p>
         {{ description }}
