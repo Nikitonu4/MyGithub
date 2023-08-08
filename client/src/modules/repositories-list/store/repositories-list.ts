@@ -6,6 +6,7 @@ import {
 } from '@/modules/repositories-list/types/repositories-list-item';
 import { UserRepositoryItem } from '@/modules/repositories-list/types/user-repository-item';
 import { AppPaginator } from '@/shared/types/app-paginator';
+import { getTotalPages } from '@/modules/repositories-list/helpers';
 
 interface IRepositoriesList {
   isFetching: boolean;
@@ -43,7 +44,7 @@ export const useRepositoriesListStore = defineStore('repositoriesList', {
             },
           }
         );
-        this.totalPages = Math.ceil(data.total_count / this.paginator.limit);
+        this.totalPages = getTotalPages(data.total_count, this.paginator.limit);
         return data.items;
       } catch (e) {
         this.totalPages = 0;
@@ -67,7 +68,7 @@ export const useRepositoriesListStore = defineStore('repositoriesList', {
             },
           }
         );
-        this.totalPages = Math.ceil(data.length / this.paginator.limit);
+        this.totalPages = getTotalPages(data.length, this.paginator.limit);
         return data;
       } catch (e) {
         this.totalPages = 0;

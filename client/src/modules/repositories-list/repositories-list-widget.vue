@@ -27,9 +27,7 @@
     <div v-if="repositoriesStore.totalPages">
       <app-paginator
         :model-value="repositoriesStore.paginator.page"
-        :total="
-          repositoriesStore.totalPages < 10 ? repositoriesStore.totalPages : 10
-        "
+        :total="repositoriesStore.totalPages"
         @next-click="updatePage(repositoriesStore.paginator.page + 1)"
         @prev-click="updatePage(repositoriesStore.paginator.page - 1)"
         @update:model-value="updatePage"

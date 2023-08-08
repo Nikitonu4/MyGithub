@@ -30,7 +30,7 @@
   import { computed } from 'vue';
   const props = withDefaults(defineProps<AppPaginatorProps>(), {
     total: 10,
-    maxVisiblePage: 5,
+    maxVisiblePage: 10,
   });
   const emits = defineEmits<AppPaginatorEmits>();
   const getClassesItem = (page: number) => [
@@ -77,7 +77,7 @@
 
     if (props.modelValue - props.maxVisiblePage >= 0) {
       for (
-        let j = 0, i = props.modelValue - 3;
+        let j = 0, i = props.modelValue - (props.maxVisiblePage - 1);
         j < props.maxVisiblePage;
         i++, j++
       ) {
