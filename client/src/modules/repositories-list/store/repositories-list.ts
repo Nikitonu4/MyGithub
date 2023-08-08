@@ -11,7 +11,7 @@ interface IRepositoriesList {
   isFetching: boolean;
   isError: boolean;
   search: string;
-  totalItems: number;
+  totalPages: number;
   repositories: RepositoryItemFromList[] | UserRepositoryItem[];
   paginator: AppPaginator;
 }
@@ -21,7 +21,7 @@ export const useRepositoriesListStore = defineStore('repositoriesList', {
     isFetching: false,
     isError: false,
     search: '',
-    totalItems: 0,
+    totalPages: 0,
     repositories: [],
     paginator: {
       page: 1,
@@ -43,10 +43,10 @@ export const useRepositoriesListStore = defineStore('repositoriesList', {
             },
           }
         );
-        this.totalItems = data.total_count;
+        this.totalPages = Math.ceil(data.total_count / this.paginator.limit);
         return data.items;
       } catch (e) {
-        this.totalItems = 0;
+        this.totalPages = 0;
         this.isError = true;
         throw e;
       } finally {
@@ -67,10 +67,10 @@ export const useRepositoriesListStore = defineStore('repositoriesList', {
             },
           }
         );
-        this.totalItems = data.length;
+        this.totalPages = Math.ceil(data.length / this.paginator.limit);
         return data;
       } catch (e) {
-        this.totalItems = 0;
+        this.totalPages = 0;
         this.isError = true;
         throw e;
       } finally {

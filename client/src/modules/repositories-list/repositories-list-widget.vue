@@ -24,12 +24,10 @@
         />
       </div>
     </div>
-    <div
-      v-if="repositoriesStore.paginator.limit < repositoriesStore.totalItems"
-    >
+    <div v-if="repositoriesStore.totalPages">
       <app-paginator
         :model-value="repositoriesStore.paginator.page"
-        :total="repositoriesStore.totalItems"
+        :total="repositoriesStore.totalPages"
         @next-click="updatePage(repositoriesStore.paginator.page + 1)"
         @prev-click="updatePage(repositoriesStore.paginator.page - 1)"
         @update:model-value="updatePage"
@@ -60,8 +58,9 @@
 
   /** Поиск репозиториев */
   const toSearch = async () => {
+    repositoriesStore.paginator.page = 1;
     await repositoriesStore.searchRepositories();
-    const query = { ...route.query, search: repositoriesStore.search };
+    const query = { ...route.query, search: repositoriesStore.search, page: 1 };
     await router.replace({ query });
   };
 
